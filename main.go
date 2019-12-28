@@ -1,17 +1,7 @@
 package main
 
-import (
-	"fmt"
-	"github.com/karuppiah7890/go-jsonschema-generator"
-)
+import "github.com/karuppiah7890/helm-schema-gen/cmd"
 
 func main() {
-	data := map[string]interface{}{
-		"something": map[string]interface{}{
-			"okay": "dokey",
-		},
-	}
-	s := &jsonschema.Document{}
-	s.ReadDeep(&data)
-	fmt.Println(s)
+  cmd.Execute()
 }
