@@ -1,0 +1,8 @@
+name: "schema-gen"
+version: "0.0.1"
+usage: "generate json schema for values yaml"
+description: "generate json schema for values yaml"
+command: "$HELM_PLUGIN_DIR/bin/helm-schema-gen"
+hooks:
+  install: "cd $HELM_PLUGIN_DIR; scripts/install.sh"
+  update: "cd $HELM_PLUGIN_DIR; scripts/install.sh"
