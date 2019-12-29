@@ -38,7 +38,7 @@ serviceAccount:
   create: true
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: ""
+  name:
 
 podSecurityContext: {}
   # fsGroup: 2000
@@ -110,9 +110,6 @@ $ helm schema-gen values.yaml
                 },
                 "repository": {
                     "type": "string"
-                },
-                "tag": {
-                    "type": "string"
                 }
             }
         },
@@ -129,7 +126,18 @@ $ helm schema-gen values.yaml
                     "type": "boolean"
                 },
                 "hosts": {
-                    "type": "array"
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "host": {
+                                "type": "string"
+                            },
+                            "paths": {
+                                "type": "array"
+                            }
+                        }
+                    }
                 },
                 "tls": {
                     "type": "array"
@@ -172,7 +180,7 @@ $ helm schema-gen values.yaml
                     "type": "boolean"
                 },
                 "name": {
-                    "type": "string"
+                    "type": "null"
                 }
             }
         },
