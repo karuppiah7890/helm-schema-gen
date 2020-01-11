@@ -2,6 +2,8 @@
 
 ![](https://github.com/karuppiah7890/helm-schema-gen/workflows/goreleaser/badge.svg)
 
+So that you don't have to write values.schema.json by hand from scratch for your Helm 3 charts
+
 [Helm](https://helm.sh) plugin to generate [json schema for values yaml](https://helm.sh/docs/topics/charts/#schema-files)
 
 ## Install
