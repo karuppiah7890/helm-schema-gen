@@ -11,7 +11,7 @@ So that you don't have to write values.schema.json by hand from scratch for your
 The plugin works with both helm v2 and v3 versions
 
 ```
-helm plugin install https://github.com/karuppiah7890/helm-schema-gen
+$ helm plugin install https://github.com/karuppiah7890/helm-schema-gen
 karuppiah7890/helm-schema-gen info checking GitHub for latest tag
 karuppiah7890/helm-schema-gen info found version: 0.0.1 for 0.0.1/Darwin/x86_64
 karuppiah7890/helm-schema-gen info installed ./bin/helm-schema-gen
