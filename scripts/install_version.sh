@@ -7,5 +7,5 @@
 ## version of the plugin mentioned
 ## in the plugin.yaml
 
-version="$(cat plugin.yaml | grep "version" | cut -d '"' -f 2)"
+version="$(cat plugin.yaml | grep "version:" | cut -d '"' -f 2)"
 ./scripts/install.sh $version
