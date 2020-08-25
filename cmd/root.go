@@ -2,11 +2,12 @@ package cmd
 
 import (
 	"fmt"
+	"io/ioutil"
+	"os"
+
 	"github.com/karuppiah7890/go-jsonschema-generator"
-	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v2"
-	"os"
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -29,9 +30,8 @@ Examples:
 		}
 
 		valuesFilePath := args[0]
-		fs := afero.NewOsFs()
 		values := make(map[string]interface{})
-		valuesFileData, err := afero.ReadFile(fs, valuesFilePath)
+		valuesFileData, err := ioutil.ReadFile(valuesFilePath)
 		if err != nil {
 			return fmt.Errorf("error when reading file '%s': %v", valuesFilePath, err)
 		}
