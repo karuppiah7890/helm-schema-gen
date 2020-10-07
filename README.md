@@ -206,6 +206,9 @@ You can save it to a file like this
 $ helm schema-gen values.yaml > values.schema.json
 ```
 
-## Issues
+## Issues? Feature Requests? Proposals? Feedback?
 
-Please raise issues in [GitHub issues](https://github.com/karuppiah7890/helm-schema-gen/issues)
+Put them all in [GitHub issues](https://github.com/karuppiah7890/helm-schema-gen/issues) 😁
+I value every feedback. I really want to make sure that my tools help people and does not
+annoy people. I want my tools to enable people and not hinder them. I'll do my best to help you
+if you face any hindrance because of using my tools! :)
