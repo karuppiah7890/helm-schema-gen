@@ -16,6 +16,11 @@ jobs:
         with:
           fetch-depth: 0
       -
+        name: Check plugin and script version
+        uses: mikefarah/yq@3.4.1
+        with:
+          cmd: ./scripts/check_version.sh plugin.yaml scripts/install_version.sh ${{ github.ref }}
+      -
         name: Set up Go
         uses: actions/setup-go@v2
         with:
