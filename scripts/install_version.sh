@@ -7,4 +7,4 @@
 ## version of the plugin mentioned
 ## in the plugin.yaml
 
-./scripts/install.sh "0.0.3"
+./scripts/install.sh "0.0.4"
