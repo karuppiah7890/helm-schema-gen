@@ -4,7 +4,7 @@
 
 So that you don't have to write values.schema.json by hand from scratch for your Helm 3 charts
 
-[Helm](https://helm.sh) plugin to generate [json schema for values yaml](https://helm.sh/docs/topics/charts/#schema-files)
+[Helm](https://helm.sh) plugin to generate [JSON Schema for values yaml](https://helm.sh/docs/topics/charts/#schema-files)
 
 Nothing fancy about the code, all the heavy lifting is done by:
 
@@ -97,7 +97,7 @@ affinity: {}
 ```
 
 Now if you use the plugin and pass the `values.yaml` to it, you will
-get the json schema for the `values.yaml`
+get the JSON Schema for the `values.yaml`
 
 ```
 $ helm schema-gen values.yaml
