@@ -15,7 +15,8 @@ Nothing fancy about the code, all the heavy lifting is done by:
 
 ## Install
 
-The plugin works with both helm v2 and v3 versions
+The plugin works with both Helm v2 and v3 versions as it's agnostic to the Helm
+binary version
 
 ```
 $ helm plugin install https://github.com/karuppiah7890/helm-schema-gen.git
@@ -25,9 +26,15 @@ karuppiah7890/helm-schema-gen info installed ./bin/helm-schema-gen
 Installed plugin: schema-gen
 ```
 
+But note that the schema feature is present only in Helm v3 charts, so Helm
+chart still has to be v3, meaning - based on the Helm chart v3 spec. And the
+schema validation is only done in Helm v3. Read more in the
+[Schema Files](https://helm.sh/docs/topics/charts/#schema-files) section of the
+Helm official docs.
+
 ## Usage
 
-The plugin works with both helm v2 and v3 versions
+The plugin works with both Helm v2 and v3 versions
 
 Let's take a sample `values.yaml` like the below
 
