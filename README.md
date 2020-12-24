@@ -8,10 +8,10 @@ So that you don't have to write values.schema.json by hand from scratch for your
 
 Nothing fancy about the code, all the heavy lifting is done by:
 
-* [go-jsonschema-generator](https://github.com/karuppiah7890/go-jsonschema-generator) - for generating JSON schema. It's a fork of [this](https://github.com/mcuadros/go-jsonschema-generator). Thanks to [@mcuadros](https://github.com/mcuadros)
-* [go-yaml](https://github.com/go-yaml/yaml/) - for YAML parsing
-* [cobra](https://github.com/spf13/cobra) - for CLI stuff
-* [The Go stdlib](https://golang.org/pkg/) - for everything else
+- [go-jsonschema-generator](https://github.com/karuppiah7890/go-jsonschema-generator) - for generating JSON schema. It's a fork of [this](https://github.com/mcuadros/go-jsonschema-generator). Thanks to [@mcuadros](https://github.com/mcuadros)
+- [go-yaml](https://github.com/go-yaml/yaml/) - for YAML parsing
+- [cobra](https://github.com/spf13/cobra) - for CLI stuff
+- [The Go stdlib](https://golang.org/pkg/) - for everything else
 
 ## Install
 
