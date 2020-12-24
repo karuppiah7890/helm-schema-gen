@@ -18,9 +18,9 @@ Nothing fancy about the code, all the heavy lifting is done by:
 The plugin works with both helm v2 and v3 versions
 
 ```
-$ helm plugin install https://github.com/karuppiah7890/helm-schema-gen
-karuppiah7890/helm-schema-gen info checking GitHub for latest tag
-karuppiah7890/helm-schema-gen info found version: 0.0.1 for 0.0.1/Darwin/x86_64
+$ helm plugin install https://github.com/karuppiah7890/helm-schema-gen.git
+karuppiah7890/helm-schema-gen info checking GitHub for tag '0.0.4'
+karuppiah7890/helm-schema-gen info found version: 0.0.4 for 0.0.4/Darwin/x86_64
 karuppiah7890/helm-schema-gen info installed ./bin/helm-schema-gen
 Installed plugin: schema-gen
 ```
