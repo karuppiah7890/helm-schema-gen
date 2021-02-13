@@ -1,11 +1,10 @@
 package cmd
 
 import (
-	"bytes"
 	"github.com/google/go-cmp/cmp"
 	"gopkg.in/yaml.v3"
+	"io/ioutil"
 	"path/filepath"
-	"strings"
 	"testing"
 )
 
@@ -15,34 +14,27 @@ func BenchmarkRootCommandExecution(b *testing.B) {
 	}
 }
 
-func TestUncommentYAML_Pattern1(t *testing.T) {
-	input := `
-foo: {}
-  # bar: 1
-  # baz: 2
-  # qux: 3
-`
-	expected := `
-foo:
-  bar: 1
-  baz: 2
-  qux: 3
-`
+func TestUncommentYAML(t *testing.T) {
+	input, _ := ioutil.ReadFile(filepath.Join("..", "testdata", "values.yaml"))
+	uncommentedInput, _ := ioutil.ReadFile(filepath.Join("..", "testdata", "values.uncommented.yaml"))
 
 	root := yaml.Node{}
-	if err := yaml.Unmarshal([]byte(input), &root); err != nil {
+	if err := yaml.Unmarshal(input, &root); err != nil {
 		t.Fatal(err)
 	}
 	uncommented := uncommentYAML(&root)
 
-	buf := &bytes.Buffer{}
-	enc := yaml.NewEncoder(buf)
-	enc.SetIndent(2)
-	if err := enc.Encode(uncommented); err != nil {
+	var actual map[string]interface{}
+	if err := uncommented.Decode(&actual); err != nil {
 		t.Fatal(err)
 	}
 
-	if diff := cmp.Diff(strings.TrimSpace(buf.String()), strings.TrimSpace(expected)); diff != "" {
+	var expected map[string]interface{}
+	if err := yaml.Unmarshal(uncommentedInput, &expected); err != nil {
+		t.Fatal(err)
+	}
+
+	if diff := cmp.Diff(expected, actual); diff != "" {
 		t.Error(diff)
 	}
 }

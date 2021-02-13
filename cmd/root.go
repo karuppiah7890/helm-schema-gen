@@ -19,28 +19,39 @@ func uncommentYAML(node *yaml.Node) *yaml.Node {
 		return node
 	case yaml.MappingNode:
 		for i := 0; i < len(node.Content); i = i + 2 {
-			node.Content[i+1] = uncommentYAML(node.Content[i+1])
-
 			key := node.Content[i]
 			value := node.Content[i+1]
-			if value.Kind != yaml.SequenceNode && value.Kind != yaml.MappingNode {
-				continue
-			}
-			if len(key.FootComment) == 0 || len(value.Content) != 0 {
-				continue
+
+			if len(key.FootComment) > 0 {
+				if len(value.Content) == 0 && (value.Kind == yaml.MappingNode || value.Kind == yaml.SequenceNode) {
+					comment := strings.ReplaceAll(key.FootComment, "#", strings.Repeat(" ", key.Column-1))
+					root := yaml.Node{}
+					if err := yaml.Unmarshal([]byte(comment), &root); err == nil {
+						if root.Content[0].Kind == value.Kind {
+							node.Content[i].FootComment = ""
+							node.Content[i+1].Content = append(value.Content, root.Content[0].Content...)
+						}
+					}
+				}
 			}
 
-			comment := strings.ReplaceAll(key.FootComment, "#", strings.Repeat(" ", key.Column-1))
-			root := yaml.Node{}
-			if err := yaml.Unmarshal([]byte(comment), &root); err != nil {
-				continue
+			if i > 0 && len(key.HeadComment) > 0 {
+				prev := node.Content[i-1]
+				if len(prev.Content) == 0 && (prev.Kind == yaml.MappingNode || prev.Kind == yaml.SequenceNode) {
+					comment := strings.ReplaceAll(key.HeadComment, "#", strings.Repeat(" ", key.Column-1))
+					root := yaml.Node{}
+					if err := yaml.Unmarshal([]byte(comment), &root); err == nil {
+						if root.Content[0].Kind == prev.Kind {
+							node.Content[i].HeadComment = ""
+							node.Content[i-1].Content = append(prev.Content, root.Content[0].Content...)
+						}
+					}
+				}
 			}
-			if root.Content[0].Kind != value.Kind {
-				continue
-			}
-			node.Content[i].FootComment = ""
-			node.Content[i+1] = root.Content[0]
+
+			node.Content[i+1] = uncommentYAML(node.Content[i+1])
 		}
+
 		return node
 	default:
 		return node
