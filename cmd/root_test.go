@@ -38,3 +38,275 @@ func TestUncommentYAML(t *testing.T) {
 		t.Error(diff)
 	}
 }
+
+func TestUncommentYAML_WithEmptyObjectPattern1(t *testing.T) {
+	input := `
+foo: {}
+# bar: 1
+baz: 2
+`
+	uncommentedInput := `
+foo:
+  bar: 1
+baz: 2
+`
+
+	root := yaml.Node{}
+	if err := yaml.Unmarshal([]byte(input), &root); err != nil {
+		t.Fatal(err)
+	}
+	uncommented := uncommentYAML(&root)
+
+	var actual map[string]interface{}
+	if err := uncommented.Decode(&actual); err != nil {
+		t.Fatal(err)
+	}
+
+	var expected map[string]interface{}
+	if err := yaml.Unmarshal([]byte(uncommentedInput), &expected); err != nil {
+		t.Fatal(err)
+	}
+
+	if diff := cmp.Diff(expected, actual); diff != "" {
+		t.Error(diff)
+	}
+}
+
+func TestUncommentYAML_WithEmptyObjectPattern2(t *testing.T) {
+	input := `
+foo: {}
+# bar: 1
+
+baz: 2
+`
+	uncommentedInput := `
+foo:
+  bar: 1
+
+baz: 2
+`
+
+	root := yaml.Node{}
+	if err := yaml.Unmarshal([]byte(input), &root); err != nil {
+		t.Fatal(err)
+	}
+	uncommented := uncommentYAML(&root)
+
+	var actual map[string]interface{}
+	if err := uncommented.Decode(&actual); err != nil {
+		t.Fatal(err)
+	}
+
+	var expected map[string]interface{}
+	if err := yaml.Unmarshal([]byte(uncommentedInput), &expected); err != nil {
+		t.Fatal(err)
+	}
+
+	if diff := cmp.Diff(expected, actual); diff != "" {
+		t.Error(diff)
+	}
+}
+
+func TestUncommentYAML_WithEmptyObjectPattern3(t *testing.T) {
+	input := `
+foo: {}
+  # bar: 1
+baz: 2
+`
+	uncommentedInput := `
+foo:
+  bar: 1
+baz: 2
+`
+
+	root := yaml.Node{}
+	if err := yaml.Unmarshal([]byte(input), &root); err != nil {
+		t.Fatal(err)
+	}
+	uncommented := uncommentYAML(&root)
+
+	var actual map[string]interface{}
+	if err := uncommented.Decode(&actual); err != nil {
+		t.Fatal(err)
+	}
+
+	var expected map[string]interface{}
+	if err := yaml.Unmarshal([]byte(uncommentedInput), &expected); err != nil {
+		t.Fatal(err)
+	}
+
+	if diff := cmp.Diff(expected, actual); diff != "" {
+		t.Error(diff)
+	}
+}
+
+func TestUncommentYAML_WithEmptyObjectPattern4(t *testing.T) {
+	input := `
+foo: {}
+  # bar: 1
+
+baz: 2
+`
+	uncommentedInput := `
+foo:
+  bar: 1
+
+baz: 2
+`
+
+	root := yaml.Node{}
+	if err := yaml.Unmarshal([]byte(input), &root); err != nil {
+		t.Fatal(err)
+	}
+	uncommented := uncommentYAML(&root)
+
+	var actual map[string]interface{}
+	if err := uncommented.Decode(&actual); err != nil {
+		t.Fatal(err)
+	}
+
+	var expected map[string]interface{}
+	if err := yaml.Unmarshal([]byte(uncommentedInput), &expected); err != nil {
+		t.Fatal(err)
+	}
+
+	if diff := cmp.Diff(expected, actual); diff != "" {
+		t.Error(diff)
+	}
+}
+
+func TestUncommentYAML_WithEmptyArrayPattern1(t *testing.T) {
+	input := `
+foo: []
+# - bar: 1
+baz: 2
+`
+	uncommentedInput := `
+foo:
+  - bar: 1
+baz: 2
+`
+
+	root := yaml.Node{}
+	if err := yaml.Unmarshal([]byte(input), &root); err != nil {
+		t.Fatal(err)
+	}
+	uncommented := uncommentYAML(&root)
+
+	var actual map[string]interface{}
+	if err := uncommented.Decode(&actual); err != nil {
+		t.Fatal(err)
+	}
+
+	var expected map[string]interface{}
+	if err := yaml.Unmarshal([]byte(uncommentedInput), &expected); err != nil {
+		t.Fatal(err)
+	}
+
+	if diff := cmp.Diff(expected, actual); diff != "" {
+		t.Error(diff)
+	}
+}
+
+func TestUncommentYAML_WithEmptyArrayPattern2(t *testing.T) {
+	input := `
+foo: []
+# - bar: 1
+
+baz: 2
+`
+	uncommentedInput := `
+foo:
+  - bar: 1
+
+baz: 2
+`
+
+	root := yaml.Node{}
+	if err := yaml.Unmarshal([]byte(input), &root); err != nil {
+		t.Fatal(err)
+	}
+	uncommented := uncommentYAML(&root)
+
+	var actual map[string]interface{}
+	if err := uncommented.Decode(&actual); err != nil {
+		t.Fatal(err)
+	}
+
+	var expected map[string]interface{}
+	if err := yaml.Unmarshal([]byte(uncommentedInput), &expected); err != nil {
+		t.Fatal(err)
+	}
+
+	if diff := cmp.Diff(expected, actual); diff != "" {
+		t.Error(diff)
+	}
+}
+
+func TestUncommentYAML_WithEmptyArrayPattern3(t *testing.T) {
+	input := `
+foo: []
+  # - bar: 1
+baz: 2
+`
+	uncommentedInput := `
+foo:
+  - bar: 1
+baz: 2
+`
+
+	root := yaml.Node{}
+	if err := yaml.Unmarshal([]byte(input), &root); err != nil {
+		t.Fatal(err)
+	}
+	uncommented := uncommentYAML(&root)
+
+	var actual map[string]interface{}
+	if err := uncommented.Decode(&actual); err != nil {
+		t.Fatal(err)
+	}
+
+	var expected map[string]interface{}
+	if err := yaml.Unmarshal([]byte(uncommentedInput), &expected); err != nil {
+		t.Fatal(err)
+	}
+
+	if diff := cmp.Diff(expected, actual); diff != "" {
+		t.Error(diff)
+	}
+}
+
+func TestUncommentYAML_WithEmptyArrayPattern4(t *testing.T) {
+	input := `
+foo: []
+  # - bar: 1
+
+baz: 2
+`
+	uncommentedInput := `
+foo:
+  - bar: 1
+
+baz: 2
+`
+
+	root := yaml.Node{}
+	if err := yaml.Unmarshal([]byte(input), &root); err != nil {
+		t.Fatal(err)
+	}
+	uncommented := uncommentYAML(&root)
+
+	var actual map[string]interface{}
+	if err := uncommented.Decode(&actual); err != nil {
+		t.Fatal(err)
+	}
+
+	var expected map[string]interface{}
+	if err := yaml.Unmarshal([]byte(uncommentedInput), &expected); err != nil {
+		t.Fatal(err)
+	}
+
+	if diff := cmp.Diff(expected, actual); diff != "" {
+		t.Error(diff)
+	}
+}
