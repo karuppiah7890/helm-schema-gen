@@ -19,40 +19,27 @@ func uncommentYAML(node *yaml.Node) *yaml.Node {
 		return node
 	case yaml.MappingNode:
 		for i := 0; i < len(node.Content); i = i + 2 {
+			node.Content[i+1] = uncommentYAML(node.Content[i+1])
+
 			key := node.Content[i]
 			value := node.Content[i+1]
-			switch value.Kind {
-			case yaml.SequenceNode:
-				if len(key.FootComment) == 0 || len(value.Content) != 0 {
-					node.Content[i+1] = uncommentYAML(value)
-					continue
-				}
-				comment := strings.ReplaceAll(key.FootComment, "#", strings.Repeat(" ", key.Column-1))
-				root := yaml.Node{}
-				if err := yaml.Unmarshal([]byte(comment), &root); err != nil {
-					continue
-				}
-				if root.Content[0].Kind != value.Kind {
-					continue
-				}
-				node.Content[i+1] = root.Content[0]
-			case yaml.MappingNode:
-				if len(key.FootComment) == 0 || len(value.Content) != 0 {
-					node.Content[i+1] = uncommentYAML(value)
-					continue
-				}
-				comment := strings.ReplaceAll(key.FootComment, "#", strings.Repeat(" ", key.Column-1))
-				root := yaml.Node{}
-				if err := yaml.Unmarshal([]byte(comment), &root); err != nil {
-					continue
-				}
-				if root.Content[0].Kind != yaml.MappingNode {
-					continue
-				}
-				node.Content[i+1] = root.Content[0]
-			default:
-				node.Content[i+1] = uncommentYAML(value)
+			if value.Kind != yaml.SequenceNode && value.Kind != yaml.MappingNode {
+				continue
 			}
+			if len(key.FootComment) == 0 || len(value.Content) != 0 {
+				continue
+			}
+
+			comment := strings.ReplaceAll(key.FootComment, "#", strings.Repeat(" ", key.Column-1))
+			root := yaml.Node{}
+			if err := yaml.Unmarshal([]byte(comment), &root); err != nil {
+				continue
+			}
+			if root.Content[0].Kind != value.Kind {
+				continue
+			}
+			node.Content[i].FootComment = ""
+			node.Content[i+1] = root.Content[0]
 		}
 		return node
 	default:
