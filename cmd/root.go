@@ -10,11 +10,11 @@ import (
 	"strings"
 )
 
-func commentOutYAML(node *yaml.Node) *yaml.Node {
+func uncommentYAML(node *yaml.Node) *yaml.Node {
 	switch node.Kind {
 	case yaml.DocumentNode, yaml.SequenceNode:
 		for i, child := range node.Content {
-			node.Content[i] = commentOutYAML(child)
+			node.Content[i] = uncommentYAML(child)
 		}
 		return node
 	case yaml.MappingNode:
@@ -24,7 +24,7 @@ func commentOutYAML(node *yaml.Node) *yaml.Node {
 			switch value.Kind {
 			case yaml.SequenceNode:
 				if len(key.FootComment) == 0 || len(value.Content) != 0 {
-					node.Content[i+1] = commentOutYAML(value)
+					node.Content[i+1] = uncommentYAML(value)
 					continue
 				}
 				comment := strings.ReplaceAll(key.FootComment, "#", strings.Repeat(" ", key.Column-1))
@@ -38,7 +38,7 @@ func commentOutYAML(node *yaml.Node) *yaml.Node {
 				node.Content[i+1] = root.Content[0]
 			case yaml.MappingNode:
 				if len(key.FootComment) == 0 || len(value.Content) != 0 {
-					node.Content[i+1] = commentOutYAML(value)
+					node.Content[i+1] = uncommentYAML(value)
 					continue
 				}
 				comment := strings.ReplaceAll(key.FootComment, "#", strings.Repeat(" ", key.Column-1))
@@ -51,7 +51,7 @@ func commentOutYAML(node *yaml.Node) *yaml.Node {
 				}
 				node.Content[i+1] = root.Content[0]
 			default:
-				node.Content[i+1] = commentOutYAML(value)
+				node.Content[i+1] = uncommentYAML(value)
 			}
 		}
 		return node
@@ -91,7 +91,7 @@ Examples:
 			return fmt.Errorf("error when unmarshaling file '%s': %v", valuesFilePath, err)
 		}
 		if ok, _ := cmd.Flags().GetBool("yaml-comment"); ok {
-			root = *commentOutYAML(&root)
+			root = *uncommentYAML(&root)
 		}
 		err = root.Decode(&values)
 		if err != nil {
