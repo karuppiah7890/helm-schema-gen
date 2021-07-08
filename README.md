@@ -1,4 +1,4 @@
-# helm schema gen plugin
+# helm schema gen plugin [ CURRENTLY NOT MAINTAINED ]
 
 ![](https://github.com/karuppiah7890/helm-schema-gen/workflows/goreleaser/badge.svg)
 
